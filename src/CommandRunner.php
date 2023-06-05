@@ -1,5 +1,7 @@
 <?php
 
+namespace MrKrash\CommandRunner;
+
 abstract class CommandRunner
 {
     abstract function onUnhandled($command);
