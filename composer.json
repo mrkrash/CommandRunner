@@ -1,0 +1,41 @@
+{
+  "name": "mrkrash/command_runner",
+  "description": "Yet another abstract class for create your own task runner.",
+  "keywords": ["cli","php","terminal","command"],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Mario Ravalli",
+      "email": "mario@raval.li",
+      "homepage": "https://mario.raval.li/",
+      "role": "Deceloper"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "MrKrash\\CommandRunner\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "MrKrash\\CommandRunner\\Tests\\": "tests/"
+    }
+  },
+  "require": {
+    "php": "^7.3 || ^8.0",
+    "league/climate": "3.8.2"
+  },
+  "require-dev": {
+    "mockery/mockery": "^1.4.2",
+    "phpunit/phpunit": "^9.5.10"
+  },
+  "suggest": {
+    "ext-mbstring": "If ext-mbstring is not available you MUST install symfony/polyfill-mbstring"
+  },
+  "scripts": {
+    "test": [
+      "vendor/bin/phpunit",
+      "@composer validate --strict"
+    ]
+  }
+}

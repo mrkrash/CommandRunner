@@ -1,0 +1,44 @@
+name: build-check
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php:
+          - "7.3"
+          - "7.4"
+          - "8.0"
+          - "8.1"
+        composer:
+          - ""
+          - "--prefer-lowest"
+
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v3
+
+      - name: 🪤 Cache Composer Packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-${{ matrix.php }}-php-${{ hashFiles('**/composer.lock') }}
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+
+      - name: 🧑🏻‍🦳 Install Dependencies
+        run: composer install --no-interaction --no-ansi --no-progress --prefer-dist ${{ matrix.composer }}
+
+      - name: 🤹🏽‍ PHPUnit
+        run: vendor/bin/phpunit
+
+      - name: 👓 Composer Validate
+        run: composer validate --strict
